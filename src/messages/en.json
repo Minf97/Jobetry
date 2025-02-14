@@ -1,0 +1,115 @@
+{
+  "home": {
+    "congratulation": "Happy New Year",
+    "title": "Get Your Professional Resume",
+    "titleSparkles1": "Elegant Design",
+    "titleSparkles2": "Powerful Content",
+    "titleSuffix": "in 10 Minutes",
+    "titleHighlight": "AI-Powered Writing Assistant",
+    "subtitle": "Let AI help optimize your content, match job requirements, and enhance your resume's impact. Smart keyword analysis and professional templates ensure you stand out.",
+    "startButton": "Get Started",
+    "userCount": "250+ successful job seekers",
+    "loginButton": "Login"
+  },
+  "login": {
+    "title": "Login",
+    "email": "Email",
+    "emailPlaceholder": "Enter your email",
+    "password": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "submitButton": "Login/Register",
+    "orText": "Or login with",
+    "githubLogin": "GitHub Login"
+  },
+  "templates": {
+    "title": "Choose Template",
+    "simple": {
+      "name": "Simple Professional",
+      "description": "Clean design highlighting key information"
+    },
+    "creative": {
+      "name": "Creative Design",
+      "description": "Unique layout for creative industries"
+    },
+    "business": {
+      "name": "Business Elite",
+      "description": "Formal style for management positions"
+    }
+  },
+  "header": {
+    "pricing": "Pricing",
+    "showcases": "Showcases",
+    "comments": "Comments",
+    "login": "Login"
+  },
+  "footer": {
+    "about": {
+      "title": "About",
+      "features": "Features",
+      "showcase": "Showcase",
+      "pricing": "Pricing"
+    },
+    "resources": {
+      "title": "Resources",
+      "docs": "Documentation",
+      "components": "Components",
+      "templates": "Templates"
+    },
+    "links": {
+      "title": "Links"
+    },
+    "description": "{name} is a NextJS template for building AI SaaS startups, with rich templates and components for quick launch.",
+    "copyright": "© {year} • {name} All rights reserved.",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service"
+  },
+  "hero": {
+    "title": "What is {name}",
+    "description": "Use AI technology to make your resume more professional and competitive. Support multiple format exports, smart layout, and automatic optimization based on job requirements.",
+    "demoAlt": "Resume Builder Demo",
+    "features": {
+      "export": {
+        "title": "Multiple Formats",
+        "description": "Support md/pdf/png formats to meet different resume submission needs."
+      },
+      "adjust": {
+        "title": "Auto Adjustment",
+        "description": "Adjust resume content based on different job descriptions to improve matching."
+      },
+      "onepage": {
+        "title": "Smart One Page",
+        "description": "Elegant layout, smart content adjustment to ensure one-page resume."
+      }
+    }
+  },
+  "features": {
+    "title": "{name} Core Features",
+    "subtitle": "Everything you need for your resume in 10 minutes",
+    "items": {
+      "export": {
+        "title": "Multiple Formats",
+        "description": "Support md/pdf/png formats to meet different resume submission needs."
+      },
+      "adjust": {
+        "title": "Auto Adjustment",
+        "description": "Adjust resume content based on different job descriptions to improve matching."
+      },
+      "onepage": {
+        "title": "Smart One Page",
+        "description": "Elegant layout, smart content adjustment to ensure one-page resume."
+      },
+      "ai": {
+        "title": "AI-Driven Optimization",
+        "description": "Use AI technology to optimize resume content for more professional expression."
+      },
+      "download": {
+        "title": "One-Click Export",
+        "description": "Quick export in multiple formats, support online preview and local save."
+      },
+      "layout": {
+        "title": "Smart Layout",
+        "description": "Automatically adjust font size and spacing for beautiful and readable resumes."
+      }
+    }
+  }
+} 

@@ -1,0 +1,115 @@
+{
+  "home": {
+    "congratulation": "新年快乐",
+    "title": "十分钟内快速得到一份",
+    "titleSparkles1": "排版优雅",
+    "titleSparkles2": "内容大气",
+    "titleSuffix": "的优秀简历",
+    "titleHighlight": "AI 智能写作助手",
+    "subtitle": "智能优化内容匹配度，提供专业排版建议，让 AI 帮你提升简历竞争力",
+    "startButton": "开始制作",
+    "userCount": "250+ 位求职者的选择",
+    "loginButton": "登录"
+  },
+  "login": {
+    "title": "登录",
+    "email": "邮箱",
+    "emailPlaceholder": "请输入邮箱",
+    "password": "密码",
+    "passwordPlaceholder": "请输入密码",
+    "submitButton": "登录/注册",
+    "orText": "或者使用以下方式登录",
+    "githubLogin": "GitHub登录"
+  },
+  "templates": {
+    "title": "选择模板",
+    "simple": {
+      "name": "简约专业",
+      "description": "清晰简约的设计，突出重要信息"
+    },
+    "creative": {
+      "name": "创意设计",
+      "description": "独特的布局，适合创意行业"
+    },
+    "business": {
+      "name": "商务精英",
+      "description": "正式专业的风格，适合管理岗位"
+    }
+  },
+  "header": {
+    "pricing": "定价",
+    "showcases": "案例展示",
+    "comments": "用户评价",
+    "login": "登录"
+  },
+  "footer": {
+    "about": {
+      "title": "关于",
+      "features": "功能特点",
+      "showcase": "案例展示",
+      "pricing": "定价"
+    },
+    "resources": {
+      "title": "资源",
+      "docs": "文档",
+      "components": "组件",
+      "templates": "模板"
+    },
+    "links": {
+      "title": "友情链接"
+    },
+    "description": "{name} 是一个用于构建 AI SaaS 创业项目的 NextJS 模板，通过丰富的模板和组件快速启动。",
+    "copyright": "© {year} • {name} 保留所有权利。",
+    "privacy": "隐私政策",
+    "terms": "服务条款"
+  },
+  "hero": {
+    "title": "什么是 {name}",
+    "description": "使用 AI 技术，让您的简历更专业、更有竞争力。支持多种格式导出，智能排版，自动根据职位需求优化内容。",
+    "demoAlt": "简历生成器演示",
+    "features": {
+      "export": {
+        "title": "多种格式导出",
+        "description": "支持 md/pdf/png 多种格式，满足不同场景的简历投递需求。"
+      },
+      "adjust": {
+        "title": "自动调整简历",
+        "description": "支持根据不同的 job description 调整简历内容，提高简历匹配度。"
+      },
+      "onepage": {
+        "title": "智能一页",
+        "description": "优雅排版，智能调整内容以确保简历保持在一页之内。"
+      }
+    }
+  },
+  "features": {
+    "title": "{name} 核心功能",
+    "subtitle": "十分钟内完成简历所需要的一切",
+    "items": {
+      "export": {
+        "title": "多种格式导出",
+        "description": "支持 md/pdf/png 多种格式，满足不同场景的简历投递需求。"
+      },
+      "adjust": {
+        "title": "自动调整简历",
+        "description": "支持根据不同的 job description 调整简历内容，提高简历匹配度。"
+      },
+      "onepage": {
+        "title": "智能一页",
+        "description": "优雅排版，智能调整内容以确保简历保持在一页之内。"
+      },
+      "ai": {
+        "title": "AI 驱动优化",
+        "description": "使用 AI 技术优化简历内容，让表达更专业更有说服力。"
+      },
+      "download": {
+        "title": "一键导出",
+        "description": "快速导出多种格式，支持在线预览和本地保存。"
+      },
+      "layout": {
+        "title": "智能排版",
+        "description": "自动调整字体大小和间距，确保简历美观易读。"
+      }
+    }
+  }
+} 
