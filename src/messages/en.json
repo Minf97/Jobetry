@@ -113,6 +113,9 @@
     }
   },
   "editor": {
+    "editTitle": "Edit Resume",
+    "previewTitle": "Preview",
+    "placeholder": "Start writing your resume...",
     "dock": {
       "fileList": "File List",
       "history": "History",

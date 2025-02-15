@@ -43,6 +43,10 @@
     --chart-4: 43 74% 66%;
  
     --chart-5: 27 87% 67%;
+ 
+    /* 编辑器颜色 */
+    --editor-paper: 220 30% 97%; /* 非常浅的蓝灰色背景，更加柔和 */
+    --editor-preview: 0 0% 100%; /* 纯白色背景用于预览区 */
   }
  
   .dark {
@@ -78,6 +82,10 @@
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+ 
+    /* 编辑器暗色模式颜色 */
+    --editor-paper: 0 0% 5.5%; /* 略微比背景色亮一点的深色 */
+    --editor-preview: 0 0% 8.5%; /* 调整为更明显但仍和谐的亮度 */
   }
 }
 
@@ -94,29 +102,3 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-[data-tip] {
-  position: relative;
-}
-
-[data-tip]::before {
-  content: attr(data-tip);
-  position: absolute;
-  top: -2rem;
-  left: 50%;
-  transform: translateX(-50%) translateY(4px);
-  padding: 0.5rem 1rem;
-  background-color: hsl(var(--popover));
-  color: hsl(var(--popover-foreground));
-  font-size: 0.75rem;
-  border-radius: 0.25rem;
-  opacity: 0;
-  transition: all 0.2s ease;
-  white-space: nowrap;
-  pointer-events: none;
-  z-index: 50;
-}
-
-[data-tip]:hover::before {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}

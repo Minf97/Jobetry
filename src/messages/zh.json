@@ -113,6 +113,9 @@
     }
   },
   "editor": {
+    "editTitle": "编辑简历信息",
+    "previewTitle": "预览",
+    "placeholder": "开始编写您的简历...",
     "dock": {
       "fileList": "文件列表",
       "history": "历史记录",

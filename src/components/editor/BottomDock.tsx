@@ -37,6 +37,7 @@ export default function BottomDock() {
   };
 
   // TODO: 支持 icon 大小选择，默认使用 h-5 w-5,大号使用 h-6 w-6
+  // TODO: 点击保存后，提示"🎉会自动保存"
 
   return (
     <TooltipProvider>
