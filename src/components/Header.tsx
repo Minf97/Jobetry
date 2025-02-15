@@ -8,7 +8,7 @@ import { ThemeToggle } from "./ThemeToggle";
 import Image from "next/image";
 import { Menu, X, Github } from "lucide-react";
 import { useState } from "react";
-import { HOST_NAME } from "@/lib/utils/constant";
+import { GITHUB_URL, HOST_NAME } from "@/lib/utils/constant";
 
 export function Header() {
   const t = useTranslations('header');
@@ -100,7 +100,7 @@ export function Header() {
             ))}
             <hr className="my-2" />
             <a
-              href="https://github.com/yourusername/resume-builder"
+              href={GITHUB_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 text-sm font-medium text-foreground transition hover:text-foreground/60"

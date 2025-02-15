@@ -111,5 +111,15 @@
         "description": "自动调整字体大小和间距，确保简历美观易读。"
       }
     }
+  },
+  "editor": {
+    "dock": {
+      "fileList": "文件列表",
+      "history": "历史记录",
+      "save": "保存",
+      "export": "导出",
+      "jobDescription": "职位描述",
+      "settings": "设置"
+    }
   }
 } 

@@ -111,5 +111,15 @@
         "description": "Automatically adjust font size and spacing for beautiful and readable resumes."
       }
     }
+  },
+  "editor": {
+    "dock": {
+      "fileList": "File List",
+      "history": "History",
+      "save": "Save",
+      "export": "Export",
+      "jobDescription": "Job Description",
+      "settings": "Settings"
+    }
   }
 } 

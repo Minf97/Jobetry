@@ -93,3 +93,30 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
+
+[data-tip] {
+  position: relative;
+}
+
+[data-tip]::before {
+  content: attr(data-tip);
+  position: absolute;
+  top: -2rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  padding: 0.5rem 1rem;
+  background-color: hsl(var(--popover));
+  color: hsl(var(--popover-foreground));
+  font-size: 0.75rem;
+  border-radius: 0.25rem;
+  opacity: 0;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 50;
+}
+
+[data-tip]:hover::before {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}

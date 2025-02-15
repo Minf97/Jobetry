@@ -46,7 +46,7 @@ export default function Home() {
 
           {/* 按钮 */}
           <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <LocaleLink href="/templates">
+            <LocaleLink href="/editor/1">
               <Button className="group relative h-12 overflow-hidden rounded-lg bg-gradient-to-r from-primary via-indigo-500 to-blue-500 px-8 py-2 text-lg font-semibold text-primary-foreground transition-all hover:opacity-90">
                 {t("startButton")}
                 <div className="absolute inset-0 h-full w-full bg-white opacity-0 transition-opacity duration-300 group-hover:opacity-10" />
