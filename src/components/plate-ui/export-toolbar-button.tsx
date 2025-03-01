@@ -357,7 +357,10 @@ export function ExportToolbarButton({ children, ...props }: DropdownMenuProps) {
 
     const url = `data:text/html;charset=utf-8,${encodeURIComponent(html)}`;
 
-    await downloadFile(url, 'plate.html');
+    console.log(html, "html");
+    
+
+    // await downloadFile(url, 'plate.html');
   };
 
   const exportToMarkdown = async () => {
