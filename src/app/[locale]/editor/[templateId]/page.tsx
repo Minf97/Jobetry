@@ -15,10 +15,12 @@ import {
 } from '@/components/editor/use-create-editor';
 import { EditorStatic } from '@/components/plate-ui/editor-static';
 import { useDebounceFn } from 'ahooks';
+import { RESUME_TEMPLATE } from '@/lib/constant';
+import ResumePages from '@/components/editor/ResumePages';
 
 export default function Page() {
-  const [editorValue, setEditorValue] = useState('');
-  const editor = useCreateEditor();
+  const [editorValue, setEditorValue] = useState(RESUME_TEMPLATE);
+  const editor = useCreateEditor({initialValue:RESUME_TEMPLATE});
   const editorStatic = useCreateEditorStatic(editorValue);
   const { run: debounceSet } = useDebounceFn(setEditorValue, { wait: 300 });
 
@@ -59,20 +61,9 @@ export default function Page() {
                 'inset-x-0 inset-y-[-30%] h-[200%] skew-y-12',
               )}
             />
-            <div className="flex justify-center">
-              {/* A4 纸张容器 */}
-              <div className="relative w-full max-w-[794px] mx-auto">
-                <div
-                  className="absolute top-0 left-0 w-full"
-                  style={{ paddingTop: '141.42%' }} // A4 比例 (297/210 * 100)
-                >
-                  <div className="absolute top-0 left-0 w-full h-full bg-white dark:bg-editor-paper rounded-sm shadow-lg p-8">
-                    <div className="prose prose-sm sm:prose-base lg:prose-lg dark:prose-invert max-w-none">
-                      <EditorStatic components={editorStaticComponents} editor={editorStatic} />
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div className="flex justify-center flex-col items-center gap-8">
+              {/* 使用动态分页显示内容 */}
+              <ResumePages editorValue={editorValue} editorStatic={editorStatic} />
             </div>
           </div>
         </div>

@@ -1,7 +1,6 @@
 'use client';
 
 import type { Value } from '@udecode/plate';
-
 import { withProps } from '@udecode/cn';
 import { AIPlugin } from '@udecode/plate-ai/react';
 import {
@@ -175,8 +174,8 @@ import { TableRowElementStatic } from '@/components/plate-ui/table-row-element-s
 import { TocElementStatic } from '@/components/plate-ui/toc-element-static';
 import { ToggleElementStatic } from '@/components/plate-ui/toggle-element-static';
 
-import { deserializeMd } from '@udecode/plate-markdown';
 import { RESUME_TEMPLATE } from '@/lib/constant';
+import { customDeserializeMd } from './custom-deserializers';
 
 export const viewComponents = {
   [AudioPlugin.key]: MediaAudioElement,
@@ -300,7 +299,7 @@ export const useCreateEditor = (
         ...override,
       },
       plugins: [...copilotPlugins, ...editorPlugins],
-      value: editor => deserializeMd(editor, initialValue ?? RESUME_TEMPLATE),
+      value: editor => customDeserializeMd(editor, initialValue ?? RESUME_TEMPLATE),
       ...options,
     },
     deps,
@@ -308,8 +307,13 @@ export const useCreateEditor = (
 };
 
 export const useCreateEditorStatic = value => {
+  // 使用自定义反序列化处理来自编辑器的值
+  // 创建一个临时编辑器用于反序列化
+  const tempEditor = createSlateEditor();
+  const processedValue = typeof value === 'string' ? customDeserializeMd(tempEditor, value) : value;
+  
   return createSlateEditor({
-    value: value,
+    value: processedValue,
     plugins: [
       BaseEquationPlugin,
       BaseInlineEquationPlugin,

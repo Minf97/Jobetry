@@ -87,7 +87,7 @@ export const editorPlugins = [
   cursorOverlayPlugin,
   // ...blockMenuPlugins,
   ...dndPlugins,
-  EmojiPlugin.configure({ options: { data: emojiMartData as any } }),
+  // EmojiPlugin.configure({ options: { data: emojiMartData as any } }),
   exitBreakPlugin,
   resetBlockTypePlugin,
   ...deletePlugins,

@@ -13,6 +13,7 @@ export const RESUME_TEMPLATE = `# 小全 - 前端工程师
 ## 工作经历
 
 ### 字节跳动 - 前端工程师
+
 :::left
 抖音/TikTok - 直播业务部
 :::
