@@ -6,7 +6,7 @@ import { Providers } from '@/components/providers';
 import { notFound } from 'next/navigation';
 import { locales, routing } from '@/i18n/routing';
 import { Header } from '@/components/Header';
-import { Footer } from '@/components/footer';
+import { ConditionalFooter } from '@/components/ConditionalFooter';
 import { getMessages } from 'next-intl/server';
 
 const geistSans = Geist({
@@ -39,11 +39,11 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}>
         <Providers locale={locale} messages={messages}>
           <Header />
-          <main className="relative min-h-screen bg-background pt-16">{children}</main>
-          <Footer />
+          <main className="relative flex-grow bg-background pt-16">{children}</main>
+          <ConditionalFooter />
         </Providers>
       </body>
     </html>

@@ -26,10 +26,10 @@ export default function Page() {
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <div className="min-h-screen bg-background">
-        <div className="grid grid-cols-1 lg:grid-cols-2">
+      <div className="h-[calc(100vh-65px)] bg-background">
+        <div className="grid grid-cols-1 lg:grid-cols-2 h-full">
           {/* 左侧编辑区 */}
-          <div className="bg-editor-paper p-4 shadow-sm h-screen w-full" data-registry="plate">
+          <div className="bg-editor-paper p-4 shadow-sm overflow-auto h-[calc(100vh-65px)]" data-registry="plate">
             <Plate
               editor={editor}
               onValueChange={e => {
@@ -46,30 +46,28 @@ export default function Page() {
                     placeholder="Type..."
                   />
                 </EditorContainer>
-                <SettingsDialog />
+                {/* 这个页面右下角设置按钮，添加 AI key 的 */}
+                {/* <SettingsDialog /> */}
               </SettingsProvider>
             </Plate>
           </div>
 
           {/* 右侧预览区 */}
-          <div className="bg-editor-preview p-6 shadow-sm overflow-auto relative">
-            <InteractiveGridPattern
+          <div className="bg-editor-preview h-[calc(100vh-65px)] p-6 shadow-sm overflow-auto relative">
+            {/* <InteractiveGridPattern
               squares={[50, 50]}
               className={cn(
                 'lg:[mask-image:radial-gradient(calc(50vw_*_0.6)_circle_at_center,white,transparent)]',
                 'max-lg:[mask-image:radial-gradient(calc(100vw_*_0.6)_circle_at_center,white,transparent)]',
                 'inset-x-0 inset-y-[-30%] h-[200%] skew-y-12',
               )}
-            />
-            <div className="flex justify-center flex-col items-center gap-8">
-              {/* 使用动态分页显示内容 */}
-              <ResumePages editorValue={editorValue} editorStatic={editorStatic} />
-            </div>
+            /> */}
+            <ResumePages editorValue={editorValue} editorStatic={editorStatic} />
           </div>
         </div>
 
         {/* 底部工具栏 */}
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2">
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-10">
           <BottomDock />
         </div>
       </div>

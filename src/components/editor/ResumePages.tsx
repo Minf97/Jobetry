@@ -44,11 +44,12 @@ function findContentElements(element: HTMLElement, maxDepth = 3, currentDepth = 
 
 export default function ResumePages({ editorValue, editorStatic }: ResumePagesProps) {
   const [pages, setPages] = useState<PageItem[]>([]);
+  const [tempPages, setTempPages] = useState<PageItem[]>([]);
   const contentRef = useRef<HTMLDivElement>(null);
   const measureContainerRef = useRef<HTMLDivElement>(null);
   const [contentRendered, setContentRendered] = useState(false);
-  const [debugInfo, setDebugInfo] = useState<string[]>([]);
-  const [isCalculating, setIsCalculating] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(0.85);
   
   // 页面尺寸设置
   const pageHeight = 1122; // A4纸高度
@@ -56,17 +57,32 @@ export default function ResumePages({ editorValue, editorStatic }: ResumePagesPr
   const pagePadding = 32;  // 页面内边距
   const availableHeight = pageHeight - (pagePadding * 2); // 可用内容高度
   
-  // 添加调试日志
-  const addDebugLog = (message: string) => {
-    console.log(message);
-    setDebugInfo(prev => [...prev.slice(-100), message]); // 保留最新的100条日志
-  };
+  // 计算缩放比例
+  useEffect(() => {
+    const calculateScale = () => {
+      const container = containerRef.current?.parentElement;
+      if (!container) return;
+      
+      // 获取容器可用宽度 (减去内边距)
+      const containerWidth = container.clientWidth - 48; // 减去 p-6 的内边距 (6 * 8 = 48)
+      // 计算合适的缩放比例，保留一些边距空间
+      const maxScaleFactor = Math.min(containerWidth / pageWidth, 1);
+      // 设置一个最小缩放值
+      const scaleFactor = Math.max(maxScaleFactor * 0.95, 0.5);
+      
+      setScale(scaleFactor);
+    };
+    
+    calculateScale();
+    
+    // 添加窗口大小变化监听器
+    window.addEventListener('resize', calculateScale);
+    return () => window.removeEventListener('resize', calculateScale);
+  }, [pageWidth]);
   
   // 先渲染内容，然后进行分页计算
   useEffect(() => {
-    // 重置页面状态
-    setPages([]);
-    setDebugInfo([]);
+    // 不再重置页面状态，保留旧页面直到新页面准备好
     setContentRendered(false);
     
     // 延迟一帧，让DOM先渲染
@@ -80,22 +96,16 @@ export default function ResumePages({ editorValue, editorStatic }: ResumePagesPr
   // 在内容渲染后，进行分页计算
   useEffect(() => {
     if (!contentRendered || !contentRef.current) return;
-    
-    addDebugLog("开始分页计算...");
-    setIsCalculating(true);
-    
+
     // 分页逻辑
     const performPagination = () => {
       const contentElement = contentRef.current;
       if (!contentElement) {
-        addDebugLog("错误：无法获取内容元素引用");
-        setIsCalculating(false);
         return;
       }
       
       // 获取所有顶级内容元素
       const contentElements = Array.from(contentElement.children);
-      addDebugLog(`顶层元素数量：${contentElements.length}`);
       
       // 使用递归函数查找实际内容元素
       let actualContentElements: HTMLElement[] = [];
@@ -103,11 +113,9 @@ export default function ResumePages({ editorValue, editorStatic }: ResumePagesPr
       if (contentElements.length === 1) {
         // 可能是嵌套的结构，尝试递归查找
         actualContentElements = findContentElements(contentElements[0] as HTMLElement);
-        addDebugLog(`使用递归查找，找到实际内容元素数量：${actualContentElements.length}`);
       } else {
         // 多个顶层元素，直接使用
         actualContentElements = contentElements as HTMLElement[];
-        addDebugLog(`使用顶层元素作为内容元素，数量：${actualContentElements.length}`);
       }
       
       // 过滤掉空元素
@@ -117,42 +125,11 @@ export default function ResumePages({ editorValue, editorStatic }: ResumePagesPr
         return hasText || hasImage;
       });
       
-      addDebugLog(`过滤后的内容元素数量：${actualContentElements.length}`);
-      
-      // 打印实际内容元素信息
-      actualContentElements.forEach((el, i) => {
-        const textPreview = el.textContent?.trim().substring(0, 20) || '';
-        const ellipsis = el.textContent?.trim().length > 20 ? '...' : '';
-        addDebugLog(`内容元素 ${i}: 类型=${el.tagName}, 文本="${textPreview}${ellipsis}"`);
-      });
-      
       if (actualContentElements.length === 0) {
-        addDebugLog("内容为空，创建空白页面");
-        setPages([{ content: '', height: 0 }]);
-        setIsCalculating(false);
+        setTempPages([{ content: '', height: 0 }]);
         return;
       }
       
-      // 测试强制分页 - 创建两个页面，确认渲染机制正常
-      // 这是一个调试辅助，我们手动将内容分为两页
-      const forceTwoPages = false;
-      
-      if (forceTwoPages) {
-        addDebugLog("强制测试两页模式");
-        // 将内容分为两半
-        const halfwayPoint = Math.ceil(actualContentElements.length / 2);
-        const firstHalfContent = actualContentElements.slice(0, halfwayPoint).map(el => el.outerHTML).join('');
-        const secondHalfContent = actualContentElements.slice(halfwayPoint).map(el => el.outerHTML).join('');
-        
-        setPages([
-          { content: firstHalfContent, height: availableHeight * 0.8 },
-          { content: secondHalfContent, height: availableHeight * 0.5 }
-        ]);
-        
-        addDebugLog(`强制分页测试：创建了 2 页`);
-        setIsCalculating(false);
-        return;
-      }
       
       // 正常分页流程
       const newPages: PageItem[] = [];
@@ -160,13 +137,9 @@ export default function ResumePages({ editorValue, editorStatic }: ResumePagesPr
       let currentPageHeight = 0;
       let previousMarginBottom = 0; // 跟踪上一个元素的底部边距
       
-      addDebugLog(`页面可用高度：${availableHeight}px`);
-      
       // 创建临时测量容器
       const measureContainer = measureContainerRef.current;
       if (!measureContainer) {
-        addDebugLog("错误：无法获取测量容器引用");
-        setIsCalculating(false);
         return;
       }
       
@@ -203,7 +176,6 @@ export default function ResumePages({ editorValue, editorStatic }: ResumePagesPr
         
         // 跳过空元素
         if (element.textContent?.trim() === '' && !element.querySelector('img')) {
-          addDebugLog(`跳过空元素 ${i}`);
           continue;
         }
         
@@ -220,11 +192,8 @@ export default function ResumePages({ editorValue, editorStatic }: ResumePagesPr
         // 更新下一个元素的前一个边距
         previousMarginBottom = metrics.marginBottom;
         
-        addDebugLog(`元素 ${i}: 类型=${element.tagName}, 高度=${metrics.height}px, 上边距=${metrics.marginTop}px, 下边距=${metrics.marginBottom}px, 折叠后总高度=${elementTotalHeight}px`);
-        
         // 元素高度为0，跳过
         if (metrics.height === 0) {
-          addDebugLog(`元素 ${i} 高度为0，跳过`);
           continue;
         }
         
@@ -235,20 +204,17 @@ export default function ResumePages({ editorValue, editorStatic }: ResumePagesPr
           // 添加到当前页
           currentPageContent += elementHTML;
           currentPageHeight += elementTotalHeight;
-          addDebugLog(`元素 ${i} 添加到当前页 ${newPages.length + 1}, 当前页高度=${currentPageHeight}px/${availableHeight}px`);
         } else {
           // 完成当前页
           newPages.push({
             content: currentPageContent,
             height: currentPageHeight
           });
-          addDebugLog(`完成页面 ${newPages.length}, 内容长度=${currentPageContent.length}, 高度=${currentPageHeight}px`);
-          
+
           // 开始新页面 - 新页面第一个元素无需考虑上一个元素的折叠边距
           currentPageContent = elementHTML;
           currentPageHeight = metrics.height + metrics.marginTop; // 使用完整上边距，不折叠
           previousMarginBottom = metrics.marginBottom; // 更新边距跟踪
-          addDebugLog(`元素 ${i} 开始新页面 ${newPages.length + 1}, 高度=${currentPageHeight}px`);
         }
       }
       
@@ -258,24 +224,24 @@ export default function ResumePages({ editorValue, editorStatic }: ResumePagesPr
           content: currentPageContent,
           height: currentPageHeight
         });
-        addDebugLog(`添加最后一页 ${newPages.length}, 内容长度=${currentPageContent.length}, 高度=${currentPageHeight}px`);
       }
-      
-      // 打印页面摘要
-      newPages.forEach((page, index) => {
-        addDebugLog(`页面 ${index + 1}: 高度=${page.height}px, 内容长度=${page.content.length}字符`);
-      });
       
       // 如果没有页面，创建一个空页面
       if (newPages.length === 0) {
-        addDebugLog("没有创建页面，添加一个空页面");
         newPages.push({ content: '', height: 0 });
       }
       
-      // 设置分页结果
-      addDebugLog(`分页完成，总页数：${newPages.length}`);
-      setPages(newPages);
-      setIsCalculating(false);
+      // 设置分页结果到临时状态，而不是直接更新显示状态
+      if (newPages.length === 0) {
+        newPages.push({ content: '', height: 0 });
+      }
+      
+      setTempPages(newPages);
+      
+      // 当分页计算完成后，更新显示的页面内容
+      requestAnimationFrame(() => {
+        setPages(newPages);
+      });
     };
     
     // 延迟执行，确保DOM已完全渲染
@@ -284,7 +250,7 @@ export default function ResumePages({ editorValue, editorStatic }: ResumePagesPr
   }, [contentRendered, availableHeight]);
   
   return (
-    <>
+    <div ref={containerRef} className="w-full" style={{ transform: `scale(${scale})`, transformOrigin: 'top left' }}>
       {/* 测量用的隐藏内容 */}
       <div className="sr-only">
         <div 
@@ -406,16 +372,6 @@ export default function ResumePages({ editorValue, editorStatic }: ResumePagesPr
           </div>
         </div>
       ))}
-      
-      {/* 调试日志显示 */}
-      <div className="mt-8 w-full max-w-[794px] mx-auto mb-16 p-4 bg-gray-100 dark:bg-gray-900 rounded-md">
-        <h3 className="text-sm font-bold mb-2">调试日志:</h3>
-        <div className="text-xs font-mono overflow-auto max-h-[300px]">
-          {debugInfo.map((log, index) => (
-            <div key={index} className="py-0.5">{log}</div>
-          ))}
-        </div>
-      </div>
-    </>
+    </div>
   );
 }
